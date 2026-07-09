@@ -1,0 +1,36 @@
+{
+  "predio": "EDIFÍCIO INFINITY RESIDENCE",
+  "cidade": { "nome": "Arapongas", "lat": -23.42, "lon": -51.42 },
+  "contato": "(43) 98874-1575",
+  "duracaoAnuncioSegundos": 8,
+  "noticiaNaRotacao": true,
+  "duracaoComunicadoSegundos": 10,
+  "anuncios": [
+    {
+      "tipo": "texto",
+      "tag": "Valeverde Imobiliária",
+      "titulo": "Desde 1989, levamos o seu patrimônio a sério",
+      "texto": "Compra, venda e locação de imóveis em Arapongas e região. Fale com nossos corretores.",
+      "rodape": "Rua Eurilemos, 972 · Centro · (43) 3252-0403",
+      "cor": "verde"
+    },
+    {
+      "tipo": "texto",
+      "tag": "Espaço disponível",
+      "titulo": "Anuncie aqui",
+      "texto": "Onde seu público está, sua marca ganha vida",
+      "rodape": "OnScreen · (43) 98874-1575",
+      "cor": "claro"
+    }
+  ],
+  "comunicados": [
+    {
+      "titulo": "Controle de pragas — 09/07 (quinta)",
+      "texto": "Serviço executado em toda a área comum do condomínio. Para agendar sua unidade: (43) 9946-0655."
+    },
+    {
+      "titulo": "Assembleia geral — 15/07, 19h",
+      "texto": "No salão de festas. Pauta: reajuste do fundo de reserva e pintura da fachada."
+    }
+  ]
+}
