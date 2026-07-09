@@ -17,8 +17,8 @@
   .tv{
     width:100vw;height:100vh;background:#f7f8fa;
     display:grid;
-    grid-template-rows:5.5vh 55fr 10vh 45fr 4vh;
-    grid-template-areas:"topbar" "media" "news" "board" "foot";
+    grid-template-rows:5.5vh 55fr 45fr 4vh;
+    grid-template-areas:"topbar" "media" "board" "foot";
     cursor:none;
   }
 
@@ -56,21 +56,21 @@
   .ad.claro h2{letter-spacing:.04em;text-transform:uppercase}
   .ad.claro p{color:var(--ink-dim);text-transform:uppercase;letter-spacing:.12em;font-size:1.8vh}
   .ad.claro .cta{color:var(--blue)}
-  .progress{position:absolute;left:0;bottom:0;height:.5vh;background:var(--gold);width:0%;z-index:2}
+  .progress{position:absolute;left:0;bottom:0;height:.5vh;background:var(--gold);width:0%;z-index:3}
   .progress.run{animation:fill var(--dur,8s) linear forwards}
   @keyframes fill{from{width:0}to{width:100%}}
 
-  /* faixa de notícia (manchete sempre visível, estilo referência) */
+  /* faixa de notícia translúcida sobre a parte de baixo da propaganda */
   .newsband{
-    grid-area:news;background:var(--bar);color:#fff;
-    display:flex;align-items:stretch;overflow:hidden;
+    position:absolute;left:0;right:0;bottom:0;z-index:1;
+    background:rgba(30,36,45,.6);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    color:#fff;display:flex;flex-direction:column;justify-content:center;gap:.7vh;
+    padding:1.2vh 1.8vh 1.5vh;min-height:8.5vh;
   }
-  .newsband .nbimg{flex:none;width:14vh;background:#0a1220;position:relative}
-  .newsband .nbimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .newsband .nbtxt{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.7vh;padding:0 1.8vh}
   .newsband .nbchip{align-self:flex-start;background:#e0632c;color:#fff;font-size:1.4vh;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.3vh 1vh;border-radius:.4vh}
   .newsband p{
-    font-size:2.2vh;line-height:1.25;font-weight:600;
+    font-size:2.2vh;line-height:1.25;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.45);
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
   }
 
@@ -114,14 +114,12 @@
     <span class="clock" id="time">--:--</span>
   </div>
 
-  <div class="media" id="media"><div class="progress" id="progress"></div></div>
-
-  <div class="newsband">
-    <div class="nbimg"><img id="nbImg" alt="" style="display:none"></div>
-    <div class="nbtxt">
-      <span class="nbchip">Notícias · G1</span>
+  <div class="media" id="media">
+    <div class="newsband">
+      <span class="nbchip">Notícias</span>
       <p id="nbTitle">Carregando notícias…</p>
     </div>
+    <div class="progress" id="progress"></div>
   </div>
 
   <div class="board">
@@ -282,9 +280,6 @@
     if (!noticiasLista.length) return;
     const n = noticiasLista[nIdx % noticiasLista.length]; nIdx++;
     document.getElementById('nbTitle').textContent = n.titulo;
-    const img = document.getElementById('nbImg');
-    if (n.imagem) { img.src = n.imagem; img.style.display = 'block'; }
-    else { img.removeAttribute('src'); img.style.display = 'none'; }
   }
   async function atualizarNoticias() {
     const v = await buscar('noticias', 'noticias.json?v=' + Date.now(), (j) => j.noticias);
