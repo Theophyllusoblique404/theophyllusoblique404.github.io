@@ -158,7 +158,15 @@
 <script>
 (() => {
   // grava o player na memória da tela (funciona mesmo ligando sem internet)
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+    // quando uma versão nova do player assume, recarrega uma vez para aplicá-la
+    let recarregou = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (recarregou) return; recarregou = true;
+      location.reload();
+    });
+  }
 
   // ---------- orientação: gira 90° quando a tela está "deitada" ----------
   // padrão automático; força com ?girar=1 ou desliga com ?girar=0 no endereço

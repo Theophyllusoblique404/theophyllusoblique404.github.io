@@ -1,6 +1,6 @@
 // Service Worker: grava o player na memória da tela.
 // A tela liga e abre o player mesmo sem internet; a rede só serve para atualizar.
-const CACHE = 'onscreen-v1';
+const CACHE = 'onscreen-v2';
 const SHELL = ['./', 'index.html', 'manifest.json'];
 
 self.addEventListener('install', (e) => {
@@ -8,7 +8,11 @@ self.addEventListener('install', (e) => {
 });
 
 self.addEventListener('activate', (e) => {
-  e.waitUntil(self.clients.claim());
+  e.waitUntil(
+    caches.keys()
+      .then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
 });
 
 self.addEventListener('fetch', (e) => {
